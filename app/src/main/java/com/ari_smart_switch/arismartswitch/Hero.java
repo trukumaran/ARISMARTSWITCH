@@ -10,11 +10,17 @@ import java.io.Serializable;
 class Hero {
     private int id;
     private String status;
+    private String devLabel;
+    private String cur;
 
 
-    public Hero(int id, String status) {
+    public Hero(int id, String status, String devLabel, String cur) {
         this.id = id;
         this.status = status;
+        this.devLabel = devLabel;
+        this.cur = cur;
+
+
 
 
     }
@@ -26,6 +32,16 @@ class Hero {
     public String getName() {
         return status;
     }
+
+    public String getDevLabel() {
+        return devLabel;
+    }
+
+    public String getCur() {
+        return cur;
+    }
+
+
 
 
 

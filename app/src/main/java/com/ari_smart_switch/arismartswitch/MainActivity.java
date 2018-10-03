@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     ProgressBar progressBar;
     ListView listView;
-    Button buttonAddUpdate, buttonAddUpdate2;
+    //Button buttonAddUpdate, buttonAddUpdate2;
     SeekBar seekBar;
 
     List<Hero> heroList;
@@ -56,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        buttonAddUpdate = (Button) findViewById(R.id.buttonAddUpdate);
-        buttonAddUpdate2 = (Button) findViewById(R.id.buttonAddUpdate2);
+       // buttonAddUpdate = (Button) findViewById(R.id.buttonAddUpdate);
+       // buttonAddUpdate2 = (Button) findViewById(R.id.buttonAddUpdate2);
         sw1 = (Switch)findViewById(R.id.switch1);
         sw2 = (Switch)findViewById(R.id.switch2);
 
@@ -71,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         heroList = new ArrayList<>();
 
 
-        buttonAddUpdate.setOnClickListener(new View.OnClickListener() {
+       /* buttonAddUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -87,11 +89,11 @@ public class MainActivity extends AppCompatActivity {
                 updateHero("2","On");
 
             }
-        });
+        }); */
 
 
 
-        sw1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        /*sw1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     updateHero("1","On");
@@ -109,7 +111,34 @@ public class MainActivity extends AppCompatActivity {
                     updateHero("2","Off");
                 }
             }
+        });*/
+
+
+
+        sw1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                if (sw1.isChecked()) {
+                    updateHero("1","D1on");
+                } else {
+                    updateHero("1","D1off");
+                }
+            }
         });
+
+        sw2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                if (sw2.isChecked()) {
+                    updateHero("2","D2on");
+                } else {
+                    updateHero("2","D2off");
+                }
+            }
+        });
+
 
 
 
@@ -128,9 +157,6 @@ public class MainActivity extends AppCompatActivity {
                 updateHero("3",String.valueOf(progressChangedValue));
 
                 //Toast.makeText(MainActivity.this, "Fan Speed is :" + progressChangedValue,Toast.LENGTH_SHORT).show();
-
-
-
             }
         });
 
@@ -160,23 +186,44 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
     private void deleteHero(int id) {
         PerformNetworkRequest request = new PerformNetworkRequest(Api.URL_DELETE_HERO + id, null, CODE_GET_REQUEST);
         request.execute();
     }
 
-    private void refreshHeroList(JSONArray heroes) throws JSONException {
+    private void refreshHeroList(JSONArray devices) throws JSONException {
         heroList.clear();
 
-        for (int i = 0; i < heroes.length(); i++) {
-            JSONObject obj = heroes.getJSONObject(i);
+        for (int i = 0; i < devices.length(); i++) {
+            JSONObject obj = devices.getJSONObject(i);
+
+            if(i==0){
+                Log.d("post_execution", "after toast"+obj.getString("status"));
+                if(obj.getString("status") == "D1on"){
+                    sw1.setChecked(true);
+                    Log.d("post_execution", "after toast on");
+                }if(obj.getString("status") == "D1off"){
+                    Log.d("post_execution", "after toast off");
+                    sw1.setChecked(false);
+                }
+            }
+
+            if(i==1){
+                if(obj.getString("status") == "D2on"){
+                    //Log.d("light2","light 2 on");
+                    sw2.setChecked(true);
+                }
+                if(obj.getString("status") == "D2off"){
+                    //Log.d("light2","light 2 on");
+                    sw2.setChecked(false);
+                }
+            }
 
             heroList.add(new Hero(
                     obj.getInt("id"),
-                    obj.getString("status")
+                    obj.getString("status"),
+                    obj.getString("label"),
+                    obj.getString("cur")
             ));
         }
 
@@ -209,7 +256,8 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject object = new JSONObject(s);
                 if (!object.getBoolean("error")) {
                     Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_SHORT).show();
-                    refreshHeroList(object.getJSONArray("heroes"));
+                    //Log.d("post_execution", "after toast");
+                    refreshHeroList(object.getJSONArray("devices"));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -245,18 +293,23 @@ public class MainActivity extends AppCompatActivity {
             LayoutInflater inflater = getLayoutInflater();
             View listViewItem = inflater.inflate(R.layout.layout_hero_list, null, true);
 
+            TextView textViewDeviceLabel = listViewItem.findViewById(R.id.textViewDeviceLabel);
             TextView textViewName = listViewItem.findViewById(R.id.textViewName);
+            TextView textViewCur = listViewItem.findViewById(R.id.textViewCur);
 
-            //TextView textViewUpdate = listViewItem.findViewById(R.id.textViewUpdate);
-            TextView textViewDelete = listViewItem.findViewById(R.id.textViewDelete);
+
+
+            //TextView textViewDelete = listViewItem.findViewById(R.id.textViewDelete);
 
             final Hero hero = heroList.get(position);
 
             textViewName.setText(hero.getName());
+            textViewDeviceLabel.setText(hero.getDevLabel());
+            textViewCur.setText(hero.getCur());
 
 
 
-            textViewDelete.setOnClickListener(new View.OnClickListener() {
+            /*textViewDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
@@ -278,7 +331,7 @@ public class MainActivity extends AppCompatActivity {
                             .show();
 
                 }
-            });
+            });*/
 
             return listViewItem;
         }
