@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,108 +14,19 @@
     android:background="@drawable/nature">
 
 
-   <!-- <ImageView
-        android:id="@+id/logo"
-        android:layout_width="200px"
-        android:layout_height="200px"
-        android:background="@mipmap/ic_launcher"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:paddingRight="20px"/>-->
-
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="55dp"
         android:orientation="vertical"
+        android:id="@+id/button_list"
         android:padding="16dp">
-
-
-        <!--<Button
-            android:id="@+id/buttonAddUpdate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Hall Light (Switch On)" />
-
-
-
-        <Button
-            android:id="@+id/buttonAddUpdate2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Kitchen Light (Switch On)" />-->
-
-
-
-
-
-
-        <TextView
-            android:id="@+id/textViewHallLight"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Hall Light : "
-            android:textSize="20dp"
-            android:textAppearance="?android:attr/textAppearanceLarge"/>
-
-
-
-
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:switchMinWidth="56dp"
-            android:checked="true"
-            android:textOff="OFF"
-            android:textOn="ON"/>
-
-
-
-        <TextView
-            android:id="@+id/textViewKitchenLight"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Kitchen Light :"
-            android:textSize="20dp"
-            android:textAppearance="?android:attr/textAppearanceLarge"/>
-        <Switch
-            android:id="@+id/switch2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:switchMinWidth="56dp"
-            android:checked="true"
-            android:textOff="OFF"
-            android:textOn ="ON"/>
-
-
-
-        <TextView
-        android:id="@+id/textViewHallFan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Hall Fan"
-        android:textSize="20dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
-
-        <SeekBar
-            android:id="@+id/seekBar"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="26dp"
-            android:max="5"
-            />
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/listViewHeroes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/linearLayout" />
+
+
+
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -119,3 +37,5 @@
         android:visibility="gone" />
 
 </RelativeLayout>
+
+    </ScrollView>

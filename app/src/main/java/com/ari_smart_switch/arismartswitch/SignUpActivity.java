@@ -50,7 +50,7 @@ public class SignUpActivity extends AppCompatActivity {
 
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        listView = (ListView) findViewById(R.id.listViewHeroes);
+        //listView = (ListView) findViewById(R.id.listViewHeroes);
 
         heroList = new ArrayList<>();
 
@@ -95,7 +95,7 @@ public class SignUpActivity extends AppCompatActivity {
 
 
 
-        PerformNetworkRequest request = new PerformNetworkRequest(Api.URL_CREATE_HERO, params, CODE_POST_REQUEST);
+        PerformNetworkRequest request = new PerformNetworkRequest(Api.URL_CREATE_DEVICE, params, CODE_POST_REQUEST);
         request.execute();
     }
 
